@@ -16,15 +16,16 @@ const gURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 server.post('/location', async (req, res) => {
   let { latitude, longitude } = req.body;
   try {
-    let weather = await axios.get(`${URL}/${latitude},${longitude}`);
+    let darkSky = await axios.get(`${URL}/${latitude},${longitude}`);
     let location = await axios.get(
       `${gURL}${latitude},${longitude}&key=AIzaSyCJADyuaUwpH25bQbLBeL5IXR0TrC8xFsA`,
     );
 
-    weather = weather.data.currently;
+    weather = darkSky.data.currently;
+    forecast = darkSky.data.daily;
     city = location.data.results[0].address_components[3].long_name;
     state = location.data.results[0].address_components[5].short_name;
-    res.json({ weather, city, state });
+    res.json({ weather, city, state, forecast });
   } catch (err) {
     console.log(err);
   }
