@@ -11,13 +11,12 @@ server.get('/', (req, res) => {
   res.send('ya made it mon');
 });
 
-const wURL =
-  'https://api.darksky.net/forecast/9a3d59d0aa28de9b80d42982e4546243';
+const URL = 'https://api.darksky.net/forecast/9a3d59d0aa28de9b80d42982e4546243';
 const gURL = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=';
 server.post('/location', async (req, res) => {
   let { latitude, longitude } = req.body;
   try {
-    let weather = await axios.get(`${wURL}/${latitude},${longitude}`);
+    let weather = await axios.get(`${URL}/${latitude},${longitude}`);
     let location = await axios.get(
       `${gURL}${latitude},${longitude}&key=AIzaSyCJADyuaUwpH25bQbLBeL5IXR0TrC8xFsA`,
     );
